@@ -7,7 +7,7 @@ export function uniqueMakes() {
 export function modelsForMake(make: string) {
   if (make === "Saab") return ["9-5", "9-3"];
   if (make === "VW") return ["Golf"];
-  if (make === "Nissan") return ["Pixo"]
+  if (make === "Nissan") return ["Micra"]
  
   return [];
 }
@@ -16,10 +16,12 @@ export function yearsFor(make: string, model: string) {
   if (make === "Saab" && model === "9-5") return [2010, 2011, 2012];
   if (make === "Saab" && model === "9-3") return [2007, 2008, 2009];
   if (make === "VW" && model === "Golf") return [2017, 2018, 2019];
-  if (make === "Nissan" && model === "Micra")
-    return [2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010];
+  if (make === "Nissan" && model === "Micra") return [2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010]
+
   return [];
 }
+
+
 
 export function enginesFor(make: string, model: string, year: number) {
   if (make === "Saab" && model === "9-5")
@@ -332,7 +334,7 @@ export function getVariant(id: string) {
       ],
     };
   }
-  if (id === "micra-k12-cr12de") {
+  if (id === "Micra-k12-cr12de") {
     return {
       make: "Nissan",
       model: "Micra",
