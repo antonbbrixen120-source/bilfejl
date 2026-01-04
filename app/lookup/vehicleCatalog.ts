@@ -1,12 +1,14 @@
 // app/lookup/vehicleCatalog.ts
 
 export function uniqueMakes() {
-  return ["Saab", "VW"];
+  return ["Saab", "VW", "Nissan"];
 }
 
 export function modelsForMake(make: string) {
   if (make === "Saab") return ["9-5", "9-3"];
   if (make === "VW") return ["Golf"];
+  if (make === "Nissan") return ["Pixo"]
+ 
   return [];
 }
 
@@ -14,6 +16,8 @@ export function yearsFor(make: string, model: string) {
   if (make === "Saab" && model === "9-5") return [2010, 2011, 2012];
   if (make === "Saab" && model === "9-3") return [2007, 2008, 2009];
   if (make === "VW" && model === "Golf") return [2017, 2018, 2019];
+  if (make === "Nissan" && model === "Micra")
+    return [2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010];
   return [];
 }
 
@@ -26,6 +30,9 @@ export function enginesFor(make: string, model: string, year: number) {
 
   if (make === "VW" && model === "Golf")
     return [{ id: "golf-2.0tdi", label: "2.0 TDI" }];
+  
+  if (make === "Nissan" && model === "Micra" && year >= 2003 && year <= 2010)
+    return [{ id: "micra-k12-cr12de", label: "1.2 16V (CR12DE)" }];
 
   return [];
 }
@@ -321,6 +328,64 @@ export function getVariant(id: string) {
           symptoms: ["DPF-lampe", "Hyppig regenerering", "Høj tomgang efter kørsel"],
           typicalFix: "Længere motorvejsture + diagnose af sensorer",
           costDkk: { low: 1000, high: 8000 },
+        },
+      ],
+    };
+  }
+  if (id === "micra-k12-cr12de") {
+    return {
+      make: "Nissan",
+      model: "Micra",
+      yearFrom: 2003,
+      yearTo: 2010,
+      engine: "1.2 16V",
+      engineCode: "CR12DE",
+      fuel: "Benzin",
+      issues: [
+        {
+          id: "micra-k12-chain-noise",
+          title: "Raslen fra tandkæde (typisk ved koldstart)",
+          severity: "Høj",
+          tags: ["lyde", "koldstart", "motorlampe"],
+          symptoms: ["Raslen ved koldstart", "Ujævn tomgang", "Kan give motorlampe hvis det udvikler sig"],
+          typicalFix: "Skift kæde + strammer + glideskinner (kontroller også oliehistorik).",
+          costDkk: { low: 6000, high: 10000 },
+        },
+        {
+          id: "micra-k12-throttle-body",
+          title: "Gasspjæld/luftstyring giver ujævn tomgang",
+          severity: "Mellem",
+          tags: ["tomgang", "sensor", "elektrisk"],
+          symptoms: ["Ustabil tomgang", "Motor kan gå ud i tomgang", "Dårlig gasrespons"],
+          typicalFix: "Rens/udskift gasspjæld og udfør evt. adaptions-/nulstillingsprocedure.",
+          costDkk: { low: 1200, high: 4000 },
+        },
+        {
+          id: "micra-k12-oil-consumption",
+          title: "Olieforbrug / olielugt",
+          severity: "Mellem",
+          tags: ["olie", "lugt", "røg"],
+          symptoms: ["Skal ofte efterfylde olie", "Olielugt", "Blå røg ved acceleration på nogle biler"],
+          typicalFix: "Tjek PCV/udluftning, lækager og kompression hvis olieforbrug er højt.",
+          costDkk: { low: 500, high: 12000 },
+        },
+        {
+          id: "micra-k12-exhaust-leak-rust",
+          title: "Udstødning ruster/utæt (høj lyd, lugt)",
+          severity: "Lav",
+          tags: ["udstødning", "lyde", "lugt"],
+          symptoms: ["Høj udstødningslyd", "Metallisk raslen", "Udstødningslugt"],
+          typicalFix: "Udskift bagpotte/mellemrør og tjek ophæng.",
+          costDkk: { low: 1500, high: 3500 },
+        },
+        {
+          id: "micra-k12-clutch-wear",
+          title: "Kobling slidt (tager højt/slipper)",
+          severity: "Lav",
+          tags: ["kobling", "gear", "vibration"],
+          symptoms: ["Koblingen tager højt", "Slipper under acceleration", "Vibration ved igangsætning"],
+          typicalFix: "Skift koblingssæt (og vurder svinghjul hvis vibration/støj).",
+          costDkk: { low: 4000, high: 8000 },
         },
       ],
     };
